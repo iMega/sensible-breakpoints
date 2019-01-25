@@ -100,7 +100,7 @@ func calcRealFileSize(buf []byte, points []int) []*Point {
 		go func(width int) {
 			p, err := aspectResizeByWidth(buf, width)
 			if err == nil {
-				logger("calculate data for strong-values, width: %d, filesize: %d", p.Width, p.FileSize)
+				logger("it calculated data for strong-values, width: %d, filesize: %d", p.Width, p.FileSize)
 				ch <- p
 			} else {
 				log.Printf("failed to resize image, %s", err)

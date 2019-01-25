@@ -7,7 +7,7 @@ import (
 	"text/tabwriter"
 
 	"github.com/dustin/go-humanize"
-	points2 "github.com/imega/sensible-breakpoints/points"
+	"github.com/imega/sensible-breakpoints/points"
 )
 
 const (
@@ -19,18 +19,14 @@ var (
 	writer = tabwriter.NewWriter(os.Stdout, 0, 0, 2, ' ', 0)
 )
 
-type Point struct {
-	Width    float64
-	FileSize float64
-}
-
 func main() {
-	ptn, err := points2.CalcBreakpoints(points2.Option{
-		Filename: "times-square.jpg",
+	ptn, err := points.CalcBreakpoints(points.Option{
+		//Filename: "times-square.jpg",
+		Filename: "kettering-sky.jpg",
 		//Filename: "src.jpg",
 		Budget:   BUDGET,
 		MinWidth: MIN_WIDTH_IMAGE,
-		//MaxWidth: 1200,
+		//MaxWidth: 2400,
 		//Verbose: true,
 	})
 	if err != nil {
