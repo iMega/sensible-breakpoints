@@ -8,7 +8,5 @@ services:
     working_dir: "/go/src/github.com/imega/sensible-breakpoints"
     command: >
       /bin/sh -c "
-        echo '@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories &&
-        apk add --upd pkgconfig vips@testing &&
         go test -v github.com/imega/sensible-breakpoints/points
       "
