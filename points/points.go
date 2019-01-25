@@ -28,6 +28,8 @@ func createStrongValues(min, max int) []int {
 		result = append(result, val)
 	}
 
+	logger("it created strong-values %d", result)
+
 	return result
 }
 

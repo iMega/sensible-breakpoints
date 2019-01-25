@@ -1,11 +1,29 @@
 package points
 
 import (
+	"sort"
+
 	"github.com/cnkei/gospline"
 )
 
+type strongValues []*Point
+
+func (sv strongValues) Len() int {
+	return len(sv)
+}
+
+func (sv strongValues) Swap(i, j int) {
+	sv[i], sv[j] = sv[j], sv[i]
+}
+
+func (sv strongValues) Less(i, j int) bool {
+	return sv[i].Width < sv[j].Width
+}
+
 func createCubicSpline(points []*Point) gospline.Spline {
 	var w, fs []float64
+
+	sort.Sort(strongValues(points))
 
 	for _, p := range points {
 		w = append(w, float64(p.Width))
@@ -31,10 +49,12 @@ func calcBreakpoints(s gospline.Spline, fileSizeSrc int, budget int) []*Point {
 			return p
 		}
 
+		w := int(s.At(fs))
+		logger("cubic spline returns value of width is %d for size of file %d", w, int(fs))
+
 		p = append(p, &Point{
-			Width:    int(s.At(fs)),
+			Width:    w,
 			FileSize: int(fs),
 		})
 	}
-
 }
