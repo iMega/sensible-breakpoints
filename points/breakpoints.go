@@ -5,15 +5,18 @@ import (
 	"log"
 	"sync"
 
+	"sort"
+
 	"github.com/h2non/bimg"
 )
 
 type Option struct {
-	Filename string
-	Budget   int
-	Verbose  bool
-	MinWidth int
-	MaxWidth int
+	Filename    string
+	Budget      int
+	Verbose     bool
+	MinWidth    int
+	MaxWidth    int
+	Breakpoints []int
 }
 
 type Point struct {
@@ -57,7 +60,10 @@ func CalcBreakpoints(opt Option) ([]*Point, error) {
 	s := createCubicSpline(points)
 	logger("cubic spline was created")
 
-	return calcBreakpoints(s, img.FileSize, opt.Budget), nil
+	result := calcBreakpoints(s, img.FileSize, opt.Budget)
+	sort.Sort(sortedValuesByWidth(result))
+
+	return filterBreakpoint(opt.Breakpoints, result), nil
 }
 
 type image struct {
@@ -145,6 +151,28 @@ func aspectResizeByWidth(buf []byte, width int) (*Point, error) {
 		Width:    size.Width,
 		FileSize: len(resultBuffer),
 	}, nil
+}
+
+func filterBreakpoint(breakpoints []int, points []*Point) []*Point {
+	var result []*Point
+
+	if len(breakpoints) < 1 {
+		return points
+	}
+
+	var start int
+	for _, bp := range breakpoints {
+		for i := start; i < len(points); i++ {
+			fmt.Println(bp, points[i].Width)
+			if bp < points[i].Width {
+				result = append(result, points[i])
+				start = i + 1
+				break
+			}
+		}
+	}
+
+	return result
 }
 
 func logger(format string, v ...interface{}) {

@@ -6,24 +6,24 @@ import (
 	"github.com/cnkei/gospline"
 )
 
-type strongValues []*Point
+type sortedValuesByWidth []*Point
 
-func (sv strongValues) Len() int {
+func (sv sortedValuesByWidth) Len() int {
 	return len(sv)
 }
 
-func (sv strongValues) Swap(i, j int) {
+func (sv sortedValuesByWidth) Swap(i, j int) {
 	sv[i], sv[j] = sv[j], sv[i]
 }
 
-func (sv strongValues) Less(i, j int) bool {
+func (sv sortedValuesByWidth) Less(i, j int) bool {
 	return sv[i].Width < sv[j].Width
 }
 
 func createCubicSpline(points []*Point) gospline.Spline {
 	var w, fs []float64
 
-	sort.Sort(strongValues(points))
+	sort.Sort(sortedValuesByWidth(points))
 
 	for _, p := range points {
 		w = append(w, float64(p.Width))
