@@ -34,6 +34,14 @@
   version = "v1.0"
 
 [[projects]]
+  digest = "1:0a7d7f8da501d50c0917e789e8b2c6c60af85ff5091946327e6cf6beddb471f0"
+  name = "github.com/shiyanhui/hero"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "13388ec75acb968f8754631bad15faa062544251"
+  version = "v0.0.1"
+
+[[projects]]
   digest = "1:645cabccbb4fa8aab25a956cbcbdf6a6845ca736b2c64e197ca7cbb9d210b939"
   name = "github.com/spf13/cobra"
   packages = ["."]
@@ -56,6 +64,7 @@
     "github.com/cnkei/gospline",
     "github.com/dustin/go-humanize",
     "github.com/h2non/bimg",
+    "github.com/shiyanhui/hero",
     "github.com/spf13/cobra",
   ]
   solver-name = "gps-cdcl"

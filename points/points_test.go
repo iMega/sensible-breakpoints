@@ -16,7 +16,7 @@ func Test_getNumberPartsFromOriginal(t *testing.T) {
 		want int
 	}{
 		{
-			name: "image has width 1000 and min-width 320",
+			name: "Image has width 1000 and min-width 320",
 			args: struct {
 				p int
 				w int
@@ -27,7 +27,7 @@ func Test_getNumberPartsFromOriginal(t *testing.T) {
 			want: 3,
 		},
 		{
-			name: "image has width 2000 and min-width 320",
+			name: "Image has width 2000 and min-width 320",
 			args: struct {
 				p int
 				w int
@@ -38,7 +38,7 @@ func Test_getNumberPartsFromOriginal(t *testing.T) {
 			want: 6,
 		},
 		{
-			name: "image has width 3000 and min-width 320",
+			name: "Image has width 3000 and min-width 320",
 			args: struct {
 				p int
 				w int
@@ -49,7 +49,7 @@ func Test_getNumberPartsFromOriginal(t *testing.T) {
 			want: 9,
 		},
 		{
-			name: "image has width 3168 and min-width 320",
+			name: "Image has width 3168 and min-width 320",
 			args: struct {
 				p int
 				w int
@@ -60,7 +60,7 @@ func Test_getNumberPartsFromOriginal(t *testing.T) {
 			want: 9,
 		},
 		{
-			name: "image has width 320 and min-width 320",
+			name: "Image has width 320 and min-width 320",
 			args: struct {
 				p int
 				w int
@@ -71,7 +71,7 @@ func Test_getNumberPartsFromOriginal(t *testing.T) {
 			want: 1,
 		},
 		{
-			name: "image has width 200 and min-width 320",
+			name: "Image has width 200 and min-width 320",
 			args: struct {
 				p int
 				w int

@@ -15,6 +15,7 @@ type RootOptions struct {
 	MaxWidth    int
 	Budget      int
 	Verbose     bool
+	Demo        bool
 	Breakpoints []int
 }
 
@@ -38,6 +39,7 @@ func Execute() {
 	flag.IntVarP(&rootOptions.Budget, "budget", "b", 20000, "Set performance budget")
 	flag.BoolVarP(&rootOptions.Verbose, "verbose", "v", false, "Enable verbose mode")
 	flag.IntSliceVarP(&rootOptions.Breakpoints, "breakpoints", "p", []int{}, "Set your breakpoints")
+	flag.BoolVarP(&rootOptions.Demo, "demo", "d", false, "Make demo")
 
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Println(err)
@@ -72,6 +74,10 @@ func run(cmd *cobra.Command, args []string) error {
 	}
 
 	writer.Flush()
+
+	if rootOptions.Demo {
+		MakeDemo(args[0], ptn)
+	}
 
 	return nil
 }

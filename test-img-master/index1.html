@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+<!-- размеры экранов в 2.0: 768, 1024, 1280 и более-->
+<!-- разные размеры экранов-->
+
+<img srcset="http://placehold.it/320x150 320w,
+             http://placehold.it/480x150 480w,
+             http://placehold.it/768x150 768w,
+             http://placehold.it/1024x150 1024w,
+             http://placehold.it/1280x150 1280w"
+     src="http://placehold.it/1280x150" alt="">
+
+<img srcset="http://placehold.it/320x150 320w,
+             http://placehold.it/480x150 480w,
+             http://placehold.it/768x150 768w,
+             http://placehold.it/1024x150 1024w,
+             http://placehold.it/1280x150 1280w"
+     sizes="(max-width: 319px) 320px,
+            (min-width: 320px) and (max-width: 479px) 480px,
+            (min-width: 480px) and (max-width: 767px) 800px,
+            (min-width: 768px) and (max-width: 1023px) 1024px,
+            1280px"
+     src="http://placehold.it/1280x150" alt="">
+
+</body>
+</html>

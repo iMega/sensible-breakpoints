@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<!-- размеры экранов в 2.0: 768, 1024, 1280 и более-->
+<!-- размеры экранов с 2x (ретина) и 3х-->
+
+<body>
+    <picture>
+        <source srcset="http://placehold.it/768x150 1x, http://placehold.it/1280x150 2x, http://placehold.it/2304x150 3x" media="(max-width: 767px)">
+        <source srcset="http://placehold.it/1024x150 1x, http://placehold.it/2048x150 2x, http://placehold.it/3072x150 3x" media="(min-width: 768px) and (max-width: 1023px)">
+        <source srcset="http://placehold.it/1280x150 1x, http://placehold.it/2560x150 2x, http://placehold.it/3840x150 3x" media="(min-width: 1024px) and (max-width: 1279px)">
+        <img srcset="http://placehold.it/1280x150 1x, http://placehold.it/2560x150 2x, http://placehold.it/3840x150 3x" src="http://placehold.it/1280x150" alt="…">
+    </picture>
+
+
+<!-- размеры экранов с '-webkit-device-pixel-ratio: 2' (ретина) аналог 2х-->
+    <picture>
+        <source srcset="http://placehold.it/768x150" media="(max-width: 767px)">
+        <source srcset="http://placehold.it/2048x150" media="(min-width: 768px) and (max-width: 1023px) and (-webkit-device-pixel-ratio: 2)">
+        <source srcset="http://placehold.it/1024x150" media="(min-width: 768px) and (max-width: 1023px)">
+        <source srcset="http://placehold.it/1280x150" media="(min-width: 1024px) and (max-width: 1279px)">
+        <img srcset="http://placehold.it/1280x150" src="http://placehold.it/1280x150" alt="…">
+    </picture>
+</body>
+</html>

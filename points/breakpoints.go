@@ -3,9 +3,8 @@ package points
 import (
 	"fmt"
 	"log"
-	"sync"
-
 	"sort"
+	"sync"
 
 	"github.com/h2non/bimg"
 )
@@ -29,7 +28,7 @@ var verbose bool
 func CalcBreakpoints(opt Option) ([]*Point, error) {
 	verbose = opt.Verbose
 
-	img, err := readImage(opt.Filename)
+	img, err := ReadImage(opt.Filename)
 	if err != nil {
 		return nil, err
 	}
@@ -45,7 +44,7 @@ func CalcBreakpoints(opt Option) ([]*Point, error) {
 	}
 
 	parts := getNumberPartsFromOriginal(opt.MinWidth, maxWidth)
-	logger("number the parts from original image, %d", parts)
+	logger("number the parts from original Image, %d", parts)
 	var sv []int
 	if thereSufficientNumberStrongValues(parts) {
 		logger("sufficient number of values for create cubic spline")
@@ -55,7 +54,7 @@ func CalcBreakpoints(opt Option) ([]*Point, error) {
 		sv = createStrongValues(opt.MinWidth, maxWidth)
 	}
 
-	points := calcRealFileSize(img.Buffer, sv)
+	points := ProcessCalc(img, sv, aspectResizeByWidth)
 
 	s := createCubicSpline(points)
 	logger("cubic spline was created")
@@ -66,35 +65,39 @@ func CalcBreakpoints(opt Option) ([]*Point, error) {
 	return filterBreakpoint(opt.Breakpoints, result), nil
 }
 
-type image struct {
+type Image struct {
 	Buffer   []byte
 	Width    int
 	Height   int
 	FileSize int
+	Filename string
 }
 
-func readImage(filename string) (*image, error) {
+func ReadImage(filename string) (*Image, error) {
 	buf, err := bimg.Read(filename)
 	if err != nil {
-		return nil, fmt.Errorf("failed to read image, %s", err)
+		return nil, fmt.Errorf("failed to read Image, %s", err)
 	}
-	logger("done: read image %s", filename)
+	logger("done: read Image %s", filename)
 
 	size, err := bimg.NewImage(buf).Size()
 	if err != nil {
-		return nil, fmt.Errorf("failed getting size image, %s", err)
+		return nil, fmt.Errorf("failed getting size Image, %s", err)
 	}
-	logger("done: getting size of image width: %d, height: %d", size.Width, size.Height)
+	logger("done: getting size of Image width: %d, height: %d", size.Width, size.Height)
 
-	return &image{
+	return &Image{
 		Buffer:   buf,
 		Width:    size.Width,
 		Height:   size.Height,
 		FileSize: len(buf),
+		Filename: filename,
 	}, nil
 }
 
-func calcRealFileSize(buf []byte, points []int) []*Point {
+type imageResizeByWidth func(img *Image, width int) (*Point, error)
+
+func ProcessCalc(img *Image, points []int, resize imageResizeByWidth) []*Point {
 	var (
 		ch  = make(chan *Point, 10)
 		ret []*Point
@@ -104,12 +107,12 @@ func calcRealFileSize(buf []byte, points []int) []*Point {
 	for _, v := range points {
 		wg.Add(1)
 		go func(width int) {
-			p, err := aspectResizeByWidth(buf, width)
+			p, err := resize(img, width)
 			if err == nil {
-				logger("it calculated data for strong-values, width: %d, filesize: %d", p.Width, p.FileSize)
+				//logger("it calculated data for strong-values, width: %d, filesize: %d", p.Width, p.FileSize)
 				ch <- p
 			} else {
-				log.Printf("failed to resize image, %s", err)
+				log.Printf("failed to resize Image, %s", err)
 			}
 			wg.Done()
 		}(v)
@@ -131,21 +134,21 @@ func calcRealFileSize(buf []byte, points []int) []*Point {
 	}
 }
 
-func aspectResizeByWidth(buf []byte, width int) (*Point, error) {
-	resultBuffer, err := bimg.NewImage(buf).Process(bimg.Options{
+func aspectResizeByWidth(img *Image, width int) (*Point, error) {
+	resultBuffer, err := bimg.NewImage(img.Buffer).Process(bimg.Options{
 		Width: width,
 		Embed: true,
 	})
 	if err != nil {
 		return nil, err
 	}
-	logger("done: resize image by width: %d", width)
+	logger("done: resize Image by width: %d", width)
 
 	size, err := bimg.NewImage(resultBuffer).Size()
 	if err != nil {
 		return nil, err
 	}
-	logger("done: after resize image has dimensions width: %d, height: %d", size.Width, size.Height)
+	logger("done: after resize Image has dimensions width: %d, height: %d", size.Width, size.Height)
 
 	return &Point{
 		Width:    size.Width,
@@ -163,7 +166,6 @@ func filterBreakpoint(breakpoints []int, points []*Point) []*Point {
 	var start int
 	for _, bp := range breakpoints {
 		for i := start; i < len(points); i++ {
-			fmt.Println(bp, points[i].Width)
 			if bp < points[i].Width {
 				result = append(result, points[i])
 				start = i + 1
