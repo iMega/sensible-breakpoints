@@ -1,14 +1,13 @@
-FROM golang:1.10-alpine3.8
+FROM golang:1.14.5-alpine3.11
 
 RUN echo '@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories && \
     echo '@main http://dl-cdn.alpinelinux.org/alpine/edge/main' >> /etc/apk/repositories && \
-    echo '@community http://dl-cdn.alpinelinux.org/alpine/edge/community' >> /etc/apk/repositories && \
     apk add --upd build-base \
         pkgconfig \
         libgsf-dev \
         openjpeg-dev \
-        graphicsmagick-dev@community \
-        openexr-dev@community \
+        graphicsmagick-dev \
+        openexr-dev \
         poppler-dev \
         librsvg-dev \
         fftw-dev@main \
