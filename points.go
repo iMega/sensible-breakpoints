@@ -4,23 +4,23 @@ import (
 	"math"
 )
 
-const MIN_STRONG_VALUES = 8
+const MinStrongValues = 8
 
 func getNumberPartsFromOriginal(p, w int) int {
 	return int(math.Floor(float64(w) / float64(p)))
 }
 
 func thereSufficientNumberStrongValues(numberParts int) bool {
-	return numberParts >= MIN_STRONG_VALUES
+	return numberParts >= MinStrongValues
 }
 
 func createStrongValues(min, max int) []int {
 	var result []int
 	diff := max - min
 
-	p := int(math.Floor(float64(diff) / float64(MIN_STRONG_VALUES)))
+	p := int(math.Floor(float64(diff) / float64(MinStrongValues)))
 
-	for i := 0; i < MIN_STRONG_VALUES; i++ {
+	for i := 0; i < MinStrongValues; i++ {
 		val := min + p*i
 		if isEven(val) == false {
 			val--
