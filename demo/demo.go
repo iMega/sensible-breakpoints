@@ -2,14 +2,13 @@ package demo
 
 import (
 	"bytes"
+	"io/ioutil"
 	"path/filepath"
 	"strconv"
 
-	"io/ioutil"
-
 	"github.com/h2non/bimg"
-	"github.com/imega/sensible-breakpoints/demo/template"
-	"github.com/imega/sensible-breakpoints/points"
+	points "github.com/iMega/sensible-breakpoints"
+	"github.com/iMega/sensible-breakpoints/demo/template"
 )
 
 func MakeDemo(filename string, p []*points.Point) error {
@@ -34,13 +33,6 @@ func MakeDemo(filename string, p []*points.Point) error {
 			Width: i.Width,
 		})
 	}
-
-	//for _, s := range []int{320, 700} {
-	//	sizes = append(sizes, template.Size{
-	//		Width: s,
-	//		Vw:    100,
-	//	})
-	//}
 
 	sizes = append(sizes, template.Size{
 		Width: 320,
@@ -100,7 +92,7 @@ func makeImages(filename string, widths []int) ([]*points.Image, error) {
 
 		bimg.Write(filename, resultBuffer)
 
-		return nil, nil
+		return &points.Point{}, nil
 	})
 
 	return imgs, nil
