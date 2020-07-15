@@ -109,10 +109,10 @@ func ProcessCalc(img *Image, points []int, resize imageResizeByWidth) []*Point {
 		go func(width int) {
 			p, err := resize(img, width)
 			if err == nil {
-				//logger("it calculated data for strong-values, width: %d, filesize: %d", p.Width, p.FileSize)
+				logger("it calculated data for strong-values, width: %d, filesize: %d", p.Width, p.FileSize)
 				ch <- p
 			} else {
-				log.Printf("failed to resize Image, %s", err)
+				logger("failed to resize Image, %s", err)
 			}
 			wg.Done()
 		}(v)
