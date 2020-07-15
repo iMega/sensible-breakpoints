@@ -6,7 +6,6 @@ require (
 	github.com/cnkei/gospline v0.0.0-20180929110753-23435f75ed52
 	github.com/dustin/go-humanize v1.0.0
 	github.com/h2non/bimg v1.0.19
-	github.com/imega/sensible-breakpoints v0.0.0-20191121171206-c8b758c4b680
 	github.com/inconshreveable/mousetrap v1.0.0 // indirect
 	github.com/shiyanhui/hero v0.0.1
 	github.com/spf13/cobra v0.0.3
