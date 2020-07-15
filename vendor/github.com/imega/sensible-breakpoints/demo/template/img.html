@@ -1,0 +1,31 @@
+<%!
+type Set struct {
+    Url   string
+    Width int
+}
+
+type Size struct {
+    Width int
+    Vw int
+}
+
+type Default struct {
+    Src string
+    Width int
+}
+%>
+
+<%: func GetDemo(srcset []Set, sizes []Size, def Default, buffer *bytes.Buffer) %>
+
+<%~ "index.html" %>
+
+<%@ img { %>
+    <img srcset="<% for _, s := range srcset { %>
+                    <%= s.Url %><%== " " %><%==i s.Width %>w,
+                <% } %>"
+     sizes="<% for _, s := range sizes { %>
+                (max-width: <%==i s.Width %>em) <%==i s.Vw %>vm,
+            <% } %>
+            <%==i def.Width %>px"
+     src="<%= def.Src %>">
+<% } %>
