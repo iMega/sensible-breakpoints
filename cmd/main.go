@@ -6,7 +6,8 @@ import (
 	"text/tabwriter"
 
 	"github.com/dustin/go-humanize"
-	"github.com/imega/sensible-breakpoints/points"
+	points "github.com/iMega/sensible-breakpoints"
+	"github.com/iMega/sensible-breakpoints/demo"
 	"github.com/spf13/cobra"
 )
 
@@ -76,7 +77,7 @@ func run(cmd *cobra.Command, args []string) error {
 	writer.Flush()
 
 	if rootOptions.Demo {
-		MakeDemo(args[0], ptn)
+		demo.MakeDemo(args[0], ptn)
 	}
 
 	return nil

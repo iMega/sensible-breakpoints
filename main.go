@@ -1,4 +1,4 @@
-package main
+package sensbreakpoints
 
 import (
 	"fmt"
@@ -7,8 +7,6 @@ import (
 	"text/tabwriter"
 
 	"github.com/dustin/go-humanize"
-	"github.com/imega/sensible-breakpoints/demo"
-	"github.com/imega/sensible-breakpoints/points"
 )
 
 var (
@@ -16,13 +14,13 @@ var (
 )
 
 func main() {
-	opts := points.Option{
-		Filename:    "IMG_8912_.png",
+	opts := Option{
+		Filename:    "aveiro_praia_da_costa_nova.jpg",
 		Breakpoints: []int{320, 700, 900},
 		MinWidth:    320,
 		Budget:      20000,
 	}
-	ptn, err := points.CalcBreakpoints(opts)
+	ptn, err := CalcBreakpoints(opts)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -37,6 +35,4 @@ func main() {
 	}
 
 	writer.Flush()
-
-	demo.MakeDemo(opts.Filename, ptn)
 }
