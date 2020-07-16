@@ -157,18 +157,15 @@ func aspectResizeByWidth(img *Image, width int) (*Point, error) {
 }
 
 func filterBreakpoint(breakpoints []int, points []*Point) []*Point {
-	var result []*Point
-
 	if len(breakpoints) < 1 {
 		return points
 	}
 
-	var start int
+	var result []*Point
 	for _, bp := range breakpoints {
-		for i := start; i < len(points); i++ {
+		for i := 0; i < len(points); i++ {
 			if bp < points[i].Width {
 				result = append(result, points[i])
-				start = i + 1
 				break
 			}
 		}

@@ -8,5 +8,5 @@ services:
     working_dir: "/go/src/github.com/imega/sensible-breakpoints"
     command: >
       /bin/sh -c "
-        go test -v github.com/iMega/sensible-breakpoints
+        go test -race -v github.com/iMega/sensible-breakpoints
       "

@@ -22,7 +22,7 @@ func createStrongValues(min, max int) []int {
 
 	for i := 0; i < MinStrongValues; i++ {
 		val := min + p*i
-		if isEven(val) == false {
+		if isOdd(val) {
 			val--
 		}
 		result = append(result, val)
@@ -53,12 +53,16 @@ func getStrongValuesLessHalf(max, min int) []int {
 	for {
 		strongValue = strongValue / 2
 
-		if strongValue <= min {
-			return ret
+		if isOdd(strongValue) {
+			strongValue--
 		}
 
-		if isEven(strongValue) == false {
-			strongValue--
+		if strongValue == min && strongValue > 0 {
+			return append(ret, strongValue)
+		}
+
+		if strongValue <= min {
+			return ret
 		}
 
 		if strongValue > 0 {
@@ -68,6 +72,10 @@ func getStrongValuesLessHalf(max, min int) []int {
 }
 
 func getMinimalWidth(points []int) int {
+	if len(points) == 0 {
+		return 0
+	}
+
 	min := points[0]
 
 	for _, p := range points {
@@ -76,7 +84,7 @@ func getMinimalWidth(points []int) int {
 		}
 	}
 
-	return int(min)
+	return min
 }
 
 func getStrongValuesOverHalf(max, min, step int) []int {
@@ -86,6 +94,11 @@ func getStrongValuesOverHalf(max, min, step int) []int {
 		i           int
 	)
 
+	if step <= 0 {
+		logger("getStrongValuesOverHalf:step should not be less or equal than 0, received: %d", step)
+		return []int{max}
+	}
+
 	for {
 		i++
 		strongValue = strongValue - step*i
@@ -93,7 +106,7 @@ func getStrongValuesOverHalf(max, min, step int) []int {
 			return ret
 		}
 
-		if isEven(strongValue) == false {
+		if isOdd(strongValue) {
 			strongValue--
 		}
 
@@ -101,6 +114,6 @@ func getStrongValuesOverHalf(max, min, step int) []int {
 	}
 }
 
-func isEven(n int) bool {
-	return n%2 == 0
+func isOdd(n int) bool {
+	return n%2 != 0
 }

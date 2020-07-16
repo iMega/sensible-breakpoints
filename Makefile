@@ -1,4 +1,4 @@
-TAG = 0.0.2
+TAG = 0.0.3
 
 test:
 	@docker-compose up -d --scale test=0
@@ -8,7 +8,7 @@ clean:
 	@docker-compose rm -sfv
 
 ARCH = x86_64_linux x86_64_darwin
-CWD = /go/src/github.com/imega/sensible-breakpoints
+CWD = $(shell pwd)
 
 release: builder $(ARCH)
 
