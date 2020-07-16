@@ -35,7 +35,6 @@ func createCubicSpline(points []*Point) gospline.Spline {
 
 func calcBreakpoints(s gospline.Spline, fileSizeSrc int, budget int) []*Point {
 	var (
-		i int
 		p []*Point
 
 		fs = float64(fileSizeSrc)
@@ -43,7 +42,6 @@ func calcBreakpoints(s gospline.Spline, fileSizeSrc int, budget int) []*Point {
 	)
 
 	for {
-		i++
 		fs = fs - b
 		if fs < b {
 			return p
