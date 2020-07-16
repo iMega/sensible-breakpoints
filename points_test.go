@@ -210,6 +210,28 @@ func Test_getStrongValuesLessHalf(t *testing.T) {
 			},
 			want: []int{50, 24, 12, 6, 2},
 		},
+		{
+			name: "create strong values between 51..204",
+			args: struct {
+				max int
+				min int
+			}{
+				max: 206,
+				min: 51,
+			},
+			want: []int{102},
+		},
+		{
+			name: "create strong values between 4..8",
+			args: struct {
+				max int
+				min int
+			}{
+				max: 8,
+				min: 4,
+			},
+			want: []int{4},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -257,6 +279,19 @@ func Test_getStrongValuesOverHalf(t *testing.T) {
 			},
 			want: []int{190, 170, 140, 100},
 		},
+		{
+			name: "create strong values between 0..100 with step 0",
+			args: struct {
+				max  int
+				min  int
+				step int
+			}{
+				max:  200,
+				min:  100,
+				step: 0,
+			},
+			want: []int{200},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -285,6 +320,11 @@ func Test_getMinimalWidth(t *testing.T) {
 			name: "",
 			args: struct{ points []int }{points: []int{3, 2, 1}},
 			want: 1,
+		},
+		{
+			name: "minimal width in empty array",
+			args: struct{ points []int }{points: []int{}},
+			want: 0,
 		},
 	}
 	for _, tt := range tests {

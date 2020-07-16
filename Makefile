@@ -8,7 +8,7 @@ clean:
 	@docker-compose rm -sfv
 
 ARCH = x86_64_linux x86_64_darwin
-CWD = /go/src/github.com/imega/sensible-breakpoints
+CWD = $(shell pwd)
 
 release: builder $(ARCH)
 

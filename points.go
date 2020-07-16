@@ -95,8 +95,8 @@ func getStrongValuesOverHalf(max, min, step int) []int {
 	)
 
 	if step <= 0 {
-		logger("getStrongValuesOverHalf: step cannot be less or equal than 0")
-		return []int{}
+		logger("getStrongValuesOverHalf:step should not be less or equal than 0, received: %d", step)
+		return []int{max}
 	}
 
 	for {
