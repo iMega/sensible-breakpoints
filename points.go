@@ -53,16 +53,16 @@ func getStrongValuesLessHalf(max, min int) []int {
 	for {
 		strongValue = strongValue / 2
 
-		if strongValue == min {
+		if isOdd(strongValue) {
+			strongValue--
+		}
+
+		if strongValue == min && strongValue > 0 {
 			return append(ret, strongValue)
 		}
 
-		if strongValue < min {
+		if strongValue <= min {
 			return ret
-		}
-
-		if isOdd(strongValue) {
-			strongValue--
 		}
 
 		if strongValue > 0 {
